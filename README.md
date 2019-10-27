@@ -2,7 +2,7 @@
 
 本手册将指导你如何使用[Skywalking](https://github.com/apache/skywalking)构建APM系统。
 
-手把手教你如何从0开始构建一个APM系统。
+通过此手册你可以了解到所有有关 SkyWalking 的架构, 如何部署并使用 SkyWalking, 以及如何基于 SkyWalking 进行开发。
 
 在线浏览地址：
 
