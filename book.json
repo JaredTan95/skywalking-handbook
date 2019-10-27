@@ -1,11 +1,11 @@
 {
-    "title": "静态网站构建手册-使用Hugo构建博客",
-    "description": "静态网站构建手册-使用Hugo构建博客",
+    "title": "Apache Skywalking Handbook",
+    "description": "Apache Skywalking Handbook",
     "language": "zh-hans",
-    "author": "Jimmy Song",
+    "author": "Jared Tan",
     "links": {
         "sidebar": {
-            "Jimmy Song": "https://jimmysong.io"
+            "Jared Tan": "https://github.com/JaredTan95/"
         }
     },
     "plugins": [
@@ -30,10 +30,10 @@
             "showLevel": true
         },
         "github": {
-            "url": "https://github.com/rootsongjc/hugo-handbook"
+            "url": "https://github.com/JaredTan95/skywalking-handbook"
         },
         "editlink": {
-            "base": "https://github.com/rootsongjc/hugo-handbook/blob/master/",
+            "base": "https://github.com/JaredTan95/skywalking-handbook/blob/master/",
             "label": "编辑本页"
         },
         "image-captions": {
@@ -45,7 +45,7 @@
             "size": "small"
         },
         "tbfed-pagefooter": {
-            "copyright": "Copyright © jimmysong.io 2017",
+            "copyright": "Copyright © Jared Tan 2019",
             "modify_label": "Updated: ",
             "modify_format": "YYYY-MM-DD HH:mm:ss"
         },
@@ -62,7 +62,7 @@
             ]
         },
         "sitemap-general": {
-            "prefix": "https://jimmysong.io/hugo-handbook/"
+            "prefix": "https://github.com/JaredTan95/skywalking-handbook"
         }
     }
 }
