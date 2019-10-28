@@ -11,6 +11,8 @@
 ### Apache Skywalking APM
 - [安装部署](installation/README.md)
 - [告警模块](alarm/README.md)
+- [使用扩展](extensions/README.md)
+    - [TraceId与日志组件集成](extensions/log/log.md)
 - [FAQ](faq/README.md)
     - [Skywalking HTTPS 认证连接 Elasticsearch](faq/es_https/README.md)
     - [Nginx代理gRPC](faq/nginx_grpc/nginx-grpc.md)
