@@ -4,9 +4,9 @@
 
 通过此手册你可以了解到所有有关 SkyWalking 的架构, 如何部署并使用 SkyWalking, 以及如何基于 SkyWalking 进行开发。
 
-在线浏览地址：
+在线浏览地址：https://skywalking-handbook.netlify.com/
 
-Github地址：
+Github地址：https://github.com/JaredTan95/skywalking-handbook
 
 ## 目标读者
 
@@ -15,6 +15,8 @@ Github地址：
 - 对追踪系统感兴趣
 - 打算在公司使用 Skywalking
 - 想了解追踪系统以及 Skywalking 内部机制
+
+![PDF 书籍封面——By Allen Wang](cover.jpg)
 
 ## 贡献者
 
