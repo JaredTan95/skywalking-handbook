@@ -10,6 +10,9 @@
 
 ### Apache Skywalking APM
 - [安装部署](installation/README.md)
+    - [shell 脚本部署](installation/script_way/README.md)
+    - [容器化部署](installation/container_way/README.md)
+    - [参数解释以及集群模式部署](installation/configuration/README.md)
 - [告警模块](alarm/README.md)
 - [使用扩展](extensions/README.md)
     - [TraceId与日志组件集成](extensions/log/log.md)

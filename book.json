@@ -5,7 +5,9 @@
     "author": "Jared Tan",
     "links": {
         "sidebar": {
-            "Jared Tan": "https://github.com/JaredTan95/"
+            "Jared Tan": "https://github.com/JaredTan95/",
+            "Allen Wang":"https://github.com/TinyAllen",
+            "Apache Skywalking": "https://github.com/apache/skywalking"
         }
     },
     "plugins": [
@@ -40,7 +42,7 @@
             "caption": "图片 - _CAPTION_"
         },
         "github-buttons": {
-            "repo": "rootsongjc/hugo-handbook",
+            "repo": "JaredTan95/skywalking-handbook",
             "types": ["star"],
             "size": "small"
         },
