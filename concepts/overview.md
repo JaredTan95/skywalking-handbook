@@ -9,7 +9,7 @@
 
 我们着重看右上角的 Obervability And Analysis 模块：
 
-![obervability_and_analysis](images/obervability_and_analysis.png)
+![obervability_and_analysis](../images/obervability_and_analysis.png)
 
 CNCF 赋予了可观察性极高的地位，可观察性和由操作系统、底层网络提供商构成的平台一样，贯穿整个云原生体系。
 
