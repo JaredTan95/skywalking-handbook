@@ -11,6 +11,7 @@
 
 ### 什么是追踪系统？
 
+- [分布式追踪](tracing_system/README.md)
 
 ### Apache Skywalking APM
 - [安装部署](installation/README.md)
