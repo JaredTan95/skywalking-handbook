@@ -4,7 +4,7 @@
 
 告警规则的定义分为两部分。
 1. 告警规则。它们定义了应该如何触发度量警报，应该考虑什么条件。
-2. [网络钩子](#Webhook}。当警告触发时，哪些服务终端需要被告知。
+2. 网络钩子。当警告触发时，哪些服务终端需要被告知，你可以通过钩子接收告警信息，然后按需将告警信息推送到其他告警平台。
 
 ## 告警规则
 
@@ -84,7 +84,7 @@ webhooks:
 ```
 
 告警的消息会通过 HTTP 请求进行发送, 请求方法为 `POST`, `Content-Type` 为 `application/json`,
-JSON 格式基于 `List<org.apache.skywalking.oap.server.core.alarm.AlarmMessage`, 包含以下信息.
+JSON 格式可以参考 `List<org.apache.skywalking.oap.server.core.alarm.AlarmMessage`, 包含以下信息.
 - **scopeId**，**scope**. 所有可用的 Scope 请查阅 `org.apache.skywalking.oap.server.core.source.DefaultScopeDefine`.
 - **name**. 目标 Scope 的实体名称.
 - **id0**. Scope 实体的 ID.
@@ -93,24 +93,24 @@ JSON 格式基于 `List<org.apache.skywalking.oap.server.core.alarm.AlarmMessage
 - **alarmMessage**. 报警消息内容.
 - **startTime**. 告警时间.
 
-以下是一个样例
+以下是一个 POST 方式推送出去的告警信息样例：
 ```json
 [{
 	"scopeId": 1, 
-        "scope": "SERVICE",
-        "name": "serviceA", 
+    "scope": "SERVICE",
+    "name": "serviceA", 
 	"id0": 12,  
 	"id1": 0,  
-        "ruleName": "service_resp_time_rule",
+    "ruleName": "service_resp_time_rule",
 	"alarmMessage": "alarmMessage xxxx",
 	"startTime": 1560524171000
 }, {
 	"scopeId": 1,
-        "scope": "SERVICE",
-        "name": "serviceB",
+    "scope": "SERVICE",
+    "name": "serviceB",
 	"id0": 23,
 	"id1": 0,
-        "ruleName": "service_resp_time_rule",
+    "ruleName": "service_resp_time_rule",
 	"alarmMessage": "alarmMessage yyy",
 	"startTime": 1560524171000
 }]
