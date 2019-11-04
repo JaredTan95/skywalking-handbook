@@ -15,6 +15,7 @@
 - [应用性能管理与可观测性平台](tracing_system/apm_observability.md)
 
 ### Apache Skywalking APM
+- [介绍](tracing_system/skywalking_intro.md)
 - [安装部署](installation/README.md)
     - [shell 脚本部署](installation/script_way/README.md)
     - [容器化部署](installation/container_way/README.md)
