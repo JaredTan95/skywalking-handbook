@@ -1,26 +1,9 @@
 # 告警模块
 
-告警的核心由一组规则驱动，这些规则定义在 安装解压缩包里面的`config/alarm-settings.yml`文件中。
+Skywalking 发送告警的基本原理是每隔一段时间轮询 skywalking-oap 收集到的链路追踪的数据，再根据所配置的告警规则（如服务响应时间、服务响应时间百分比）等，如果达到阈值则发送响应的告警信息。
+发送告警信息是以线程池异步的方式调用 webhook 接口完成，（具体的webhook接口可以使用者自行定义），从而开发者可以在指定的webhook接口中自行编写各种告警方式，钉钉告警、邮件告警等等。
 
-告警规则的定义分为两部分。
-1. 告警规则。它们定义了应该如何触发度量警报，应该考虑什么条件。
-2. 网络钩子。当警告触发时，哪些服务终端需要被告知，你可以通过钩子接收告警信息，然后按需将告警信息推送到其他告警平台。
-
-## 告警规则
-
-告警规则主要有以下几点：
-- **Rule name**。在告警信息中显示的唯一名称。必须以`_rule`结尾。
-- **Metrics name**。 也是 OAL 脚本中的度量名。只支持long,double和int类型。详情见
-[所有可能的度量名称列表](#所有可能的度量名称列表).
-- **Include names**。其下的实体名称都在此规则中。比如服务名，终端名。
-- **Threshold**。阈值。
-- **OP**。 操作符, 支持 `>`, `<`, `=`。欢迎贡献所有的操作符。
-- **Period**.。多久告警规则需要被核实一下。这是一个时间窗口，与后端部署环境时间相匹配。    
-- **Count**。 在一个Period窗口中，如果**value**s超过Threshold值（按op），达到Count值，需要发送警报。
-- **Silence period**。在时间N中触发报警后，在**TN -> TN + period**这个阶段不告警。 默认情况下，它和**Period**一样，这意味着相同的告警（在同一个Metrics name拥有相同的Id）在同一个Period内只会触发一次。
-
-示例配置如下：
-
+告警的核心由一组规则驱动，这些规则定义在 安装解压缩包里面的`config/alarm-settings.yml`文件中, 打开之后如下所示：rules 即为需要配置的告警规则的列表；第一个规则 'endpoint_percent_rule'，是规则名，不能重复且必须以 '_rule' 为结尾.
 
 ```yaml
 rules:
@@ -48,6 +31,23 @@ rules:
     period: 10
     count: 4
 ```
+
+告警规则的定义分为两部分。
+1. 告警规则。它们定义了应该如何触发度量警报，应该考虑什么条件。
+2. 网络钩子。当警告触发时，哪些服务终端需要被告知，你可以通过钩子接收告警信息，然后按需将告警信息推送到其他告警平台。
+
+## 告警规则
+
+告警规则主要有以下几点：
+- **Rule name**。在告警信息中显示的唯一名称。必须以`_rule`结尾。指定的规则（与规则名不同，这里是对应的告警中的规则map，具体可查看 [backend-alarm.md](https://github.com/apache/skywalking/blob/master/docs/en/setup/backend/backend-alarm.md#list-of-all-potential-metrics-name)，其中一些常见的，endpoint_percent_rule——端点相应半分比告警，service_percent_rule——服务相应百分比告警）
+- **Metrics name**。 也是 OAL 脚本中的度量名。只支持long,double和int类型。详情见[所有可能的度量名称列表](#所有可能的度量名称列表).
+- **Include names**。使用本规则告警的服务列表。比如服务名，端点名。
+- **Threshold**。阈值,与metrics-name和下面的比较符号相匹配
+- **OP**。 操作符, 支持 `>`, `<`, `=`。欢迎贡献所有的操作符。如 metrics-name: endpoint_percent, threshold: 75，op: < ,表示如果相应时长小于平均75%则发送告警
+- **Period**.。多久告警规则需要被核实一下。这是一个时间窗口，与后端部署环境时间相匹配。    
+- **Count**。 在一个Period窗口中，如果**value**s超过Threshold值（按op），达到Count值，需要发送警报。
+- **Silence period**。在时间N中触发报警后，在**TN -> TN + period**这个阶段不告警。 默认情况下，它和**Period**一样，这意味着相同的告警（在同一个Metrics name拥有相同的Id）在同一个Period内只会触发一次。
+
 
 ## 默认告警规则
 为了方便，我们在发行版中提供了默认的`alarm setting.yml`文件，包括以下规则
