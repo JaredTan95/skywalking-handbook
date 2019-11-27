@@ -7,22 +7,22 @@ Skywalking 发送告警的基本原理是每隔一段时间轮询 skywalking-oap
 
 ```yaml
 rules:
-  # Rule unique name, must be ended with `_rule`.
+  # Rule unique name, must be ended with `_rule`.（告警规则名称应该具有唯一性，且必须以 `_rule` 结尾。）
   endpoint_percent_rule:
-    # Metrics value need to be long, double or int
+    # Metrics value need to be long, double or int. （指标值需要是long，double 或者 int）
     metrics-name: endpoint_percent
     threshold: 75
     op: <
-    # The length of time to evaluate the metrics
+    # The length of time to evaluate the metrics（告警检查周期：多久检查一次当前的指标数据是否符合告警规则，单位是分钟）
     period: 10
-    # How many times after the metrics match the condition, will trigger alarm
+    # How many times after the metrics match the condition, will trigger alarm（累计达到多少次告警值后触发告警）
     count: 3
-    # How many times of checks, the alarm keeps silence after alarm triggered, default as same as period.
+    # How many times of checks, the alarm keeps silence after alarm triggered, default as same as period.（忽略相同告警 message 的周期，默认与告警检查周期一致）
     silence-period: 10
     
   service_percent_rule:
     metrics-name: service_percent
-    # [Optional] Default, match all services in this metrics
+    # [Optional] Default, match all services in this metrics（可选项，默认匹配所有服务）
     include-names:
       - service_a
       - service_b
@@ -68,7 +68,7 @@ SkyWalking 的告警 Webhook 要求接收方是一个 Web 容器。 需要在部
 rules:
   service_resp_time_rule:
     metrics-name: service_resp_time
-    # [Optional] Default, match all services in this metrics
+    # [Optional] Default, match all services in this metrics（可选项，默认匹配所有服务）
     include-names:
       - dubbox-provider
       - dubbox-consumer
@@ -114,4 +114,62 @@ JSON 格式可以参考 `List<org.apache.skywalking.oap.server.core.alarm.AlarmM
 	"alarmMessage": "alarmMessage yyy",
 	"startTime": 1560524171000
 }]
+```
+
+以下是一个可参考的告警配置：
+
+```yml
+# Sample alarm rules.
+rules:
+  # Rule unique name, must be ended with `_rule`.
+  service_resp_time_rule:
+    metrics-name: service_resp_time
+    op: ">"
+    threshold: 500
+    period: 10
+    count: 1
+    silence-period: 5
+    message: Response time of service {name} is more than 1000ms in last 10 minutes.
+  service_sla_rule:
+    # Indicator value need to be long, double or int
+    metrics-name: service_sla
+    op: "<"
+    threshold: 8000
+    # The length of time to evaluate the metric
+    period: 10
+    # How many times after the metric match the condition, will trigger alarm
+    count: 2
+    # How many times of checks, the alarm keeps silence after alarm triggered, default as same as period.
+    silence-period: 3
+    message: Successful rate of service {name} is lower than 80% in last 10 minutes.
+  service_p90_sla_rule:
+    # Indicator value need to be long, double or int
+    metrics-name: service_p90
+    op: ">"
+    threshold: 500
+    period: 10
+    count: 1
+    silence-period: 5
+    message: 90% response time of service {name} is lower than 1000ms in last 10 minutes
+  service_instance_resp_time_rule:
+    metrics-name: service_instance_resp_time
+    op: ">"
+    threshold: 500
+    period: 10
+    count: 1
+    silence-period: 5
+    message: Response time of service instance {name} is more than 1000ms in last 10 minutes.
+  endpoint_avg_rule:
+    metrics-name: endpoint_avg
+    op: ">"
+    threshold: 500
+    period: 10
+    count: 1
+    silence-period: 5
+    message: Response time of endpoint {name} is more than 1000ms in last 10 minutes.
+
+webhooks:
+#  - http://127.0.0.1/notify/
+#  - http://127.0.0.1/go-wechat/
+
 ```
