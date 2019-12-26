@@ -3,7 +3,7 @@
 ## 概述
 
 分布式追踪的概念源自最早面对超大规模分布式场景的 Google 公司于2010年发表的论文——[《Dapper, a Large-Scale Distributed Systems Tracing Infrastructure》](https://ai.google/research/pubs/pub36356)。
-论文中详细地介绍了 Google 的 Dapper 系统实现及原理，Dapper 的核心实现方法是在分布式请求的上下文中假如 span id 以及 parent id , 用于记录请求的上下级关系，如下如所示：
+论文中详细地介绍了 Google 的 Dapper 系统实现及原理，Dapper 的核心算法是在分布式请求的上下文中加入 span id 以及 parent id , 用于记录请求的上下级关系，如下图所示：
 
 ![dapper-01.png](../images/dapper-01.png)
 
