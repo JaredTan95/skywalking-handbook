@@ -15,7 +15,7 @@
 
 ## 目前常见的开源解决方案
 
-Apache Zipkin 是起步最早、社区生态最为完备的分布式追踪系统解决方案。她借助了稳定的 API 库以及广泛的集成，几乎覆盖了从开源到商业级别的分布式系统的各个角落。
+Apache Zipkin 是起步最早、社区生态最为完备的分布式追踪系统解决方案。它借助了稳定的 API 库以及广泛的集成，几乎覆盖了从开源到商业级别的分布式系统的各个角落。
 其覆盖的语言包括 Java、C#、Go、JavaScript、Ruby、Scala、C++、PHP、Elixir、Lua等，甚至为每种语言都提供了不止一种 API 库，更好地适应了各种不同的应用场景。
 
 OpenTracing 是 CNCF 托管的分布式追踪项目，它的官方定位是针对分布式追踪的 API 标准库，与厂商无关，旨在为不同的分布式追踪系统提供统一的对外 API 接入层。 因此，OpenTracing 并不包含任何实现，可以将它理解为接口协议，类似于 Java 的数据库访问接口 JDBC。
@@ -31,7 +31,7 @@ OpenCensus 来自于 Google，是2017年才崭露头角的新兴项目。它的�
 
 ![opentracing_opencensus](../images/opentracing_opencensus.png)
 
-可以看到，OpenTracing和OpenCensus从功能和特性上来看，各有优缺点，半斤八两。OpenTracing支持的语言更多、相对对其他系统的耦合性要更低；OpenCensus支持Metrics、从API到基础框架都实现了个便。既然从功能和特性上分不出高下，从知名度和用户数上来看做对比：
+可以看到，OpenTracing和OpenCensus从功能和特性上来看，各有优缺点，半斤八两。OpenTracing支持的语言更多、相对对其他系统的耦合性要更低；OpenCensus支持Metrics、从API到基础框架都实现了个遍。既然从功能和特性上分不出高下，从知名度和用户数上来看做对比：
 
 ![opentracing_opencensus_users](../images/opentracing_opencensus_users.png)
 
