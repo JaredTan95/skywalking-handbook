@@ -2,22 +2,22 @@
 
 首先需要从官方下载压缩包并解压，不同版本下载地址：http://skywalking.apache.org/downloads/ 或者 http://skywalking.apache.org/downloads/
 
-此处以 **6.4.0** 为例:
+此处以 **7.0.0** 为例:
 
-⾸先点击右边地址下载 Skywalking 安装包: https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-6.4.0.tar.gz ;
+⾸先点击右边地址下载 Skywalking 安装包: https://www-us.apache.org/dist/skywalking/7.0.0/apache-skywalking-apm-7.0.0.tar.gz ;
 
 或者在Linux系统中执⾏行行如下命令:
 
 - 下载压缩包
 
 ```bash
-$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-6.4.0.tar.gz
+$ wget https://www-us.apache.org/dist/skywalking/7.0.0/apache-skywalking-apm-7.0.0.tar.gz
 ```
 
 - 解压缩之后
 
 ```bash
-$ tar -zxvf apache-skywalking-apm-6.4.0.tar.gz
+$ tar -zxvf apache-skywalking-apm-7.0.0.tar.gz
 
 $ ls apache-skywalking-apm-bin
 

@@ -26,7 +26,7 @@
     <groupId>org.apache.skywalking</groupId>
     <artifactId>apm-toolkit-logback-1.x</artifactId>
     <version>${skywalking.version}</version>
-    <!-- <version>6.2.0</version>-->
+    <!-- <version>7.0.0</version>-->
 </dependency>
 ```
 
