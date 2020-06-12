@@ -6,6 +6,8 @@
 
 ![skywalking-dashboard-01](http://cdn.jared-says.cn/skywalking-8-01.png)
 
+![skywalking-dashboard](http://cdn.jared-says.cn/WX20200609-110936.png)
+
 仪表盘提供了针对全局（Global）、服务（Service）、端点（Endpoint）、实例（Instance）四个不同粒度的观测角度，方便我们从全局到具体的进行观测系统的健康并及时发现那些糟糕的信号量。
 
 由于 Skywalking 提供了较多的指标数据，其中新版本中更是包括了从 Prometheus 接收的指标数据以及自身监控指标。这就导致之前的 UI 展示的指标信息可能并不是每个人都关心或者对用户更加直观的数据。
@@ -16,13 +18,13 @@
 
 ## 新的拓扑关系
 
-![](http://cdn.jared-says.cn/WX20200607-231520.png)
+![](http://cdn.jared-says.cn/WX20200609-111916.png)
+
+![](http://cdn.jared-says.cn/WX20200609-112018.png)
 
 新的拓扑图中，除了支持我们为一组服务创建一个分组来帮我们梳理服务与服务、应用与应用的关系之外，还新增了直接从拓扑节点进行关联指标数据查询。省去了不同页面之间来回跳转的尴尬局面。
 
 ![](http://cdn.jared-says.cn/WX20200607-231826.png)
-
-//TODO: client_server 指标
 
 ## Trace 展示多样化
 
