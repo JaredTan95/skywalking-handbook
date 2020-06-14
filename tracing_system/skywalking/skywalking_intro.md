@@ -18,7 +18,7 @@ Skywalking 从以大数据平台为主的分析模式，进化为轻量化、低
 
 Skywalking 不局限于以往的基于多语言探针的思想，它面向多数据源，可提供统一、高效、可定制化的可观察性分析平台解决方案，如下图所示：
 
-![Skywalking  可观察性分析平台](../images/skywalking_v8_arch.jpeg)
+![Skywalking  可观察性分析平台](http://cdn.jared-says.cn/687474703a2f2f736b7977616c6b696e672e6170616368652e6f72672f6173736574732f6672616d652d76382e6a70673f753d3230323030343233.jpeg)
 
 可观察性分析平台（Observability Analysis Platform, OAP） 是 Skywalking 社区 PMC 团队提出的新概念，OAP 将可观察性分为两个维度和三个层面：
 

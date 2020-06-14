@@ -14,21 +14,20 @@ Skywalking OAP后端收集器器已经安装部署好，假设暴露的地址为
 
 不同版本下载地址: http://skywalking.apache.org/downloads/
 
-此处以6.4.0为例例:
-首先点击右边地址下载Skywalking安装包，⾥面包含了探针 Agent 压缩包:https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-6.4.0.tar.gz;也可以查看该⽂档同级⽬目录下的压缩包。
+此处以 8.0.0 为例:
+首先点击右边地址下载 Skywalking 安装包，⾥面包含了探针 Agent 压缩包:https://www-us.apache.org/dist/skywalking/8.0.0/apache-skywalking-apm-8.0.0.tar.gz;也可以查看该⽂档同级⽬目录下的压缩包。
 或者在Linux系统中执⾏行行如下命令:
 
 - 下载压缩包
 
 ```bash
-$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-6.4.0.t
- ar.gz
+$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-8.0.0.tar.gz
 ```
 
 - 解压缩之后
 
 ```bash
-$ tar -zxvf apache-skywalking-apm-6.4.0.tar.gz
+$ tar -zxvf apache-skywalking-apm-8.0.0.tar.gz
 
   +-- agent
      +-- activations
@@ -109,26 +108,11 @@ CMD ["catalina.sh","run"]
 $ java -javaagent:/path/to/skywalking-agent/skywalking-agent.jar -jar yourApp.jar
 ```
 
-另外，关于Jar包容器器化，提供了可参考的 `Dockerfile`：
+另外，关于 Jar 包容器化，提供了可参考的 `Dockerfile`：
 
 ```bash
-FROM openjdk:8-jre-alpine
-LABEL maintainer="jian.tan@daocloud.io"
-ENV DIST_NAME=product \
-     APP_VERSION=0.0.1-SNAPSHOT \
-     AGENT_REPO_URL="https://nexus.daocloud.io/repository/dx-public/io/daocloud/mir
- coservice/skywalking/agent/2.0.1/agent-2.0.1.gz"
-ADD $AGENT_REPO_URL /
-COPY target/"$DIST_NAME-$APP_VERSION.jar" /"$DIST_NAME.jar"
-RUN set -ex; \
-     tar -zxf /agent-2.0.1.gz; \
-     rm -rf agent-2.0.1.gz;
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-     && echo "Asia/Shanghai" > /etc/timezone
-EXPOSE 18080
-ENTRYPOINT java -javaagent:/skywalking-agent/skywalking-agent.jar \
-                 -XX:+PrintFlagsFinal -XX:+UnlockExperimentalVMOptions -XX:+UseCGro
- upMemoryLimitForHeap $JAVA_OPTS -jar /$DIST_NAME.jar
+
+// TODO：
 ```
 
 ### 通过 Kubernetes Sidecar 方式接⼊（推荐）：
