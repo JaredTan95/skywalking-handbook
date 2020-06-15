@@ -29,11 +29,11 @@
 - [告警模块](alarm/README.md)
 - [使用扩展](extensions/README.md)
     - [Skywalking 自监控](extensions/self_telementry.md)
+    - [Skywalking HTTPS 认证连接 Elasticsearch](extensions/es_https/README.md)
     - [TraceId与日志组件集成](extensions/log/log.md)
+    - [使用 Nginx 代理 gRPC，为 Skywalking 集群提供负载均衡](extensions/nginx_grpc/nginx-grpc.md)
+    - [Elasticsearch 优化](extensions/es_opti.md)
 - [FAQ](faq/README.md)
-    - [Skywalking HTTPS 认证连接 Elasticsearch](faq/es_https/README.md)
-    - [Nginx代理gRPC](faq/nginx_grpc/nginx-grpc.md)
-    - [Elasticsearch 优化](faq/es_opti.md)
 
 ### 后序
 
