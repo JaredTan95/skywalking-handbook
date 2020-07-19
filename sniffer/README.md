@@ -14,20 +14,20 @@ Skywalking OAP后端收集器器已经安装部署好，假设暴露的地址为
 
 不同版本下载地址: http://skywalking.apache.org/downloads/
 
-此处以 8.0.0 为例:
-首先点击右边地址下载 Skywalking 安装包，⾥面包含了探针 Agent 压缩包:https://www-us.apache.org/dist/skywalking/8.0.0/apache-skywalking-apm-8.0.0.tar.gz;也可以查看该⽂档同级⽬目录下的压缩包。
+此处以 8.0.1 为例:
+首先点击右边地址下载 Skywalking 安装包，⾥面包含了探针 Agent 压缩包:https://www-us.apache.org/dist/skywalking/8.0.1/apache-skywalking-apm-8.0.1.tar.gz;也可以查看该⽂档同级⽬目录下的压缩包。
 或者在Linux系统中执⾏行行如下命令:
 
 - 下载压缩包
 
 ```bash
-$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-8.0.0.tar.gz
+$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-8.0.1.tar.gz
 ```
 
 - 解压缩之后
 
 ```bash
-$ tar -zxvf apache-skywalking-apm-8.0.0.tar.gz
+$ tar -zxvf apache-skywalking-apm-8.0.1.tar.gz
 
   +-- agent
      +-- activations
@@ -108,17 +108,9 @@ CMD ["catalina.sh","run"]
 $ java -javaagent:/path/to/skywalking-agent/skywalking-agent.jar -jar yourApp.jar
 ```
 
-另外，关于 Jar 包容器化，提供了可参考的 `Dockerfile`：
-
-```bash
-
-// TODO：
-```
-
 ### 通过 Kubernetes Sidecar 方式接⼊（推荐）：
 
-这种方式则将探针单独的打包成了一个镜像，通过 initContainers 和业务容器共享⽂件夹，以此加载探
-针。
+这种方式则将探针单独的打包成了一个镜像，通过 initContainers 和业务容器共享⽂件夹，以此加载探针。
 
 ```yml
     # refs: https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/
