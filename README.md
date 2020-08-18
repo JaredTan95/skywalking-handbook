@@ -4,7 +4,7 @@
 
 通过此手册你可以了解到所有有关 SkyWalking 的架构, 如何部署并使用 SkyWalking, 以及如何基于 SkyWalking 进行开发。
 
-注意⚠️：基于 Skywalking 最新 8.0.1 版本
+注意⚠️：基于 Skywalking 最新 8.1.0 版本
 
 在线浏览地址：https://skywalking-handbook.netlify.com/
 

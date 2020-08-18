@@ -2,26 +2,26 @@
 
 首先需要从官方下载压缩包并解压，不同版本下载地址：http://skywalking.apache.org/downloads/ 或者 http://skywalking.apache.org/downloads/
 
-此处以 **8.0.1** 为例:
+此处以 **8.1.0** 为例:
 
-Skywalking 发行包里面包含了 `apache-skywalking-apm-8.0.1.tar.gz` 和 `apache-skywalking-apm-es7-8.0.1.tar.gz`，两者唯一不同之处是所使用的 Elasticsearch 版本不同。前者适用 Elasticsearch 6.x 版本作为存储，后者带有 `es7` 标识的则代表适用  Elasticsearch 7.x 版本作为存储。
+Skywalking 发行包里面包含了 `apache-skywalking-apm-8.1.0.tar.gz` 和 `apache-skywalking-apm-es7-8.1.0.tar.gz`，两者唯一不同之处是所使用的 Elasticsearch 版本不同。前者适用 Elasticsearch 6.x 版本作为存储，后者带有 `es7` 标识的则代表适用  Elasticsearch 7.x 版本作为存储。
 
-以 Elasticsearch 6.x 即 `apache-skywalking-apm-8.0.1.tar.gz` 为例：
+以 Elasticsearch 6.x 即 `apache-skywalking-apm-8.1.0.tar.gz` 为例：
 
-⾸先点击右边地址下载 Skywalking 安装包: https://www-us.apache.org/dist/skywalking/8.0.1/apache-skywalking-apm-8.0.1.tar.gz;
+⾸先点击右边地址下载 Skywalking 安装包: https://www-us.apache.org/dist/skywalking/8.1.0/apache-skywalking-apm-8.1.0.tar.gz;
 
 或者在Linux系统中执⾏行行如下命令:
 
 - 下载压缩包
 
 ```bash
-$ wget https://www-us.apache.org/dist/skywalking/8.0.1/apache-skywalking-apm-8.0.1.tar.gz
+$ wget https://www-us.apache.org/dist/skywalking/8.1.0/apache-skywalking-apm-8.1.0.tar.gz
 ```
 
 - 解压缩之后
 
 ```bash
-$ tar -zxvf apache-skywalking-apm-8.0.1.tar.gz
+$ tar -zxvf apache-skywalking-apm-8.1.0.tar.gz
 
 $ ls apache-skywalking-apm-bin
 
