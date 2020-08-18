@@ -24,4 +24,6 @@ Github地址：https://github.com/JaredTan95/skywalking-handbook
 
 感谢此书的[贡献者](https://github.com/JaredTan95/skywalking-handbook/graphs/contributors)。
 
-## 致谢
+## 联系作者
+
+![Jared Tan](http://cdn.jared-says.cn/WechatIMG163.jpeg)
