@@ -1,0 +1,822 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Elasticsearch 优化 · Apache Skywalking Handbook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Jared Tan">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-ghcolors.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../faq/" />
+    
+    
+    <link rel="prev" href="nginx_grpc/nginx-grpc.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../favicon.ico' type="image/x-icon">
+    
+    
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"JaredTan95/skywalking-handbook","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://github.com/JaredTan95/" target="_blank" class="custom-link">Jared Tan</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://github.com/TinyAllen" target="_blank" class="custom-link">Allen Wang</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://github.com/apache/skywalking" target="_blank" class="custom-link">Apache Skywalking</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">观察分布式/微服务</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../concepts/overview.html">
+            
+                <a href="../concepts/overview.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../concepts/trace_metrics_loggin.html">
+            
+                <a href="../concepts/trace_metrics_loggin.html">
+            
+                    
+                        <b>2.2.</b>
+                    
+                    核心概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">APM 系统与可观测性平台？</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../tracing_system/">
+            
+                <a href="../tracing_system/">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    分布式追踪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../tracing_system/apm_observability.html">
+            
+                <a href="../tracing_system/apm_observability.html">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    应用性能管理与可观测性平台
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../tracing_system/PS_deep_into_obserbility.html">
+            
+                <a href="../tracing_system/PS_deep_into_obserbility.html">
+            
+                    
+                        <b>3.3.</b>
+                    
+                    附:《万字破解云原生可观测性》
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Apache Skywalking APM</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../tracing_system/skywalking/skywalking_intro.html">
+            
+                <a href="../tracing_system/skywalking/skywalking_intro.html">
+            
+                    
+                        <b>4.1.</b>
+                    
+                    介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../tracing_system/skywalking/feature.html">
+            
+                <a href="../tracing_system/skywalking/feature.html">
+            
+                    
+                        <b>4.1.1.</b>
+                    
+                    功能介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../installation/">
+            
+                <a href="../installation/">
+            
+                    
+                        <b>4.2.</b>
+                    
+                    安装部署
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../installation/script_way/">
+            
+                <a href="../installation/script_way/">
+            
+                    
+                        <b>4.2.1.</b>
+                    
+                    shell 脚本部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../installation/container_way/">
+            
+                <a href="../installation/container_way/">
+            
+                    
+                        <b>4.2.2.</b>
+                    
+                    容器化部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="../installation/configuration/">
+            
+                <a href="../installation/configuration/">
+            
+                    
+                        <b>4.2.3.</b>
+                    
+                    参数解释以及集群模式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../sniffer/">
+            
+                <a href="../sniffer/">
+            
+                    
+                        <b>4.3.</b>
+                    
+                    探针接入
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../sniffer/agent_param.html">
+            
+                <a href="../sniffer/agent_param.html">
+            
+                    
+                        <b>4.3.1.</b>
+                    
+                    探针参数配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="../sniffer/trace_ingore.html">
+            
+                <a href="../sniffer/trace_ingore.html">
+            
+                    
+                        <b>4.3.2.</b>
+                    
+                    端点过滤-忽略追踪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="../sniffer/customize-enhance-trace.html">
+            
+                <a href="../sniffer/customize-enhance-trace.html">
+            
+                    
+                        <b>4.3.3.</b>
+                    
+                    支持自定义方法/函数增强
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../alarm/">
+            
+                <a href="../alarm/">
+            
+                    
+                        <b>4.4.</b>
+                    
+                    告警模块
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                        <b>4.5.</b>
+                    
+                    使用扩展
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.5.1" data-path="self_telementry.html">
+            
+                <a href="self_telementry.html">
+            
+                    
+                        <b>4.5.1.</b>
+                    
+                    Skywalking 自监控
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5.2" data-path="es_https/">
+            
+                <a href="es_https/">
+            
+                    
+                        <b>4.5.2.</b>
+                    
+                    Skywalking HTTPS 认证连接 Elasticsearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5.3" data-path="log/log.html">
+            
+                <a href="log/log.html">
+            
+                    
+                        <b>4.5.3.</b>
+                    
+                    TraceId与日志组件集成
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5.4" data-path="nginx_grpc/nginx-grpc.html">
+            
+                <a href="nginx_grpc/nginx-grpc.html">
+            
+                    
+                        <b>4.5.4.</b>
+                    
+                    使用 Nginx 代理 gRPC，为 Skywalking 集群提供负载均衡
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.5.5" data-path="es_opti.html">
+            
+                <a href="es_opti.html">
+            
+                    
+                        <b>4.5.5.</b>
+                    
+                    Elasticsearch 优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="../faq/">
+            
+                <a href="../faq/">
+            
+                    
+                        <b>4.6.</b>
+                    
+                    FAQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">后序</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" >
+            
+                <span>
+            
+                    
+                        <b>5.1.</b>
+                    
+                    后记
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Elasticsearch 优化</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="elasticsearch-&#x4F18;&#x5316;&#x5B9E;&#x8DF5;">Elasticsearch &#x4F18;&#x5316;&#x5B9E;&#x8DF5;</h1>
+<p>Elasticsearch&#xFF08;&#x7B80;&#x79F0;ES&#xFF09;&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;Apache Lucene(TM)&#x7684;&#x5F00;&#x6E90;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x3002;&#x65E0;&#x8BBA;&#x5728;&#x5F00;&#x6E90;&#x8FD8;&#x662F;&#x4E13;&#x6709;&#x9886;&#x57DF;&#xFF0C;Lucene&#x53EF;&#x4EE5;&#x88AB;&#x8BA4;&#x4E3A;&#x662F;&#x8FC4;&#x4ECA;&#x4E3A;&#x6B62;&#x6700;&#x5148;&#x8FDB;&#x3001;&#x6027;&#x80FD;&#x6700;&#x597D;&#x7684;&#x3001;&#x529F;&#x80FD;&#x6700;&#x5168;&#x7684;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x5E93;&#x3002;</p>
+<p>Elasticsearch &#x4F5C;&#x4E3A;&#x5F00;&#x6E90;&#x9996;&#x9009;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x641C;&#x7D22;&#x5206;&#x6790;&#x5F15;&#x64CE;&#xFF0C;&#x901A;&#x8FC7;&#x4E00;&#x5957;&#x7CFB;&#x7EDF;&#x8F7B;&#x677E;&#x6EE1;&#x8DB3;&#x7528;&#x6237;&#x7684;&#x65E5;&#x5FD7;&#x5B9E;&#x65F6;&#x5206;&#x6790;&#x3001;&#x5168;&#x6587;&#x68C0;&#x7D22;&#x3001;&#x7ED3;&#x6784;&#x5316;&#x6570;&#x636E;&#x5206;&#x6790;&#x7B49;&#x591A;&#x79CD;&#x9700;&#x6C42;&#xFF0C;&#x5927;&#x5E45;&#x964D;&#x4F4E;&#x5927;&#x6570;&#x636E;&#x65F6;&#x4EE3;&#x6316;&#x6398;&#x6570;&#x636E;&#x4EF7;&#x503C;&#x7684;&#x6210;&#x672C;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#xFF0C;Lucene&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x5E93;&#x3002;&#x60F3;&#x8981;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x4F60;&#x5FC5;&#x987B;&#x4F7F;&#x7528;Java&#x6765;&#x4F5C;&#x4E3A;&#x5F00;&#x53D1;&#x8BED;&#x8A00;&#x5E76;&#x5C06;&#x5176;&#x76F4;&#x63A5;&#x96C6;&#x6210;&#x5230;&#x4F60;&#x7684;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x66F4;&#x7CDF;&#x7CD5;&#x7684;&#x662F;&#xFF0C;Lucene&#x975E;&#x5E38;&#x590D;&#x6742;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#x68C0;&#x7D22;&#x7684;&#x76F8;&#x5173;&#x77E5;&#x8BC6;&#x6765;&#x7406;&#x89E3;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#x3002;</p>
+<p>Elasticsearch &#x4E5F;&#x4F7F;&#x7528;Java&#x5F00;&#x53D1;&#x5E76;&#x4F7F;&#x7528;Lucene&#x4F5C;&#x4E3A;&#x5176;&#x6838;&#x5FC3;&#x6765;&#x5B9E;&#x73B0;&#x6240;&#x6709;&#x7D22;&#x5F15;&#x548C;&#x641C;&#x7D22;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x7684;&#x76EE;&#x7684;&#x662F;&#x901A;&#x8FC7;&#x7B80;&#x5355;&#x7684;RESTful API&#x6765;&#x9690;&#x85CF;Lucene&#x7684;&#x590D;&#x6742;&#x6027;&#xFF0C;&#x4ECE;&#x800C;&#x8BA9;&#x5168;&#x6587;&#x641C;&#x7D22;&#x53D8;&#x5F97;&#x7B80;&#x5355;&#x3002;</p>
+<p>&#x4E0D;&#x8FC7;&#xFF0C;Elasticsearch &#x4E0D;&#x4EC5;&#x4EC5;&#x662F;Lucene&#x548C;&#x5168;&#x6587;&#x641C;&#x7D22;&#xFF0C;&#x8FD8;&#x80FD;&#x8FD9;&#x6837;&#x53BB;&#x63CF;&#x8FF0;&#x5B83;&#xFF1A;</p>
+<ul>
+<li>&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x5B9E;&#x65F6;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#xFF0C;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#x90FD;&#x88AB;&#x7D22;&#x5F15;&#x5E76;&#x53EF;&#x88AB;&#x641C;&#x7D22;</li>
+<li>&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x5B9E;&#x65F6;&#x5206;&#x6790;&#x641C;&#x7D22;&#x5F15;&#x64CE;</li>
+<li>&#x53EF;&#x4EE5;&#x6269;&#x5C55;&#x5230;&#x4E0A;&#x767E;&#x53F0;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5904;&#x7406;PB&#x7EA7;&#x7ED3;&#x6784;&#x5316;&#x6216;&#x975E;&#x7ED3;&#x6784;&#x5316;&#x6570;&#x636E;</li>
+</ul>
+<p>&#x800C;&#x4E14;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#x88AB;&#x96C6;&#x6210;&#x5230;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x91CC;&#x9762;&#xFF0C;&#x4F60;&#x7684;&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7B80;&#x5355;&#x7684;RESTful API&#x3001;&#x5404;&#x79CD;&#x8BED;&#x8A00;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x751A;&#x81F3;&#x547D;&#x4EE4;&#x884C;&#x4E0E;&#x4E4B;&#x4EA4;&#x4E92;&#x3002;</p>
+<p>&#x4E0A;&#x624B;ES&#x975E;&#x5E38;&#x5BB9;&#x6613;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x8BB8;&#x591A;&#x5408;&#x7406;&#x7684;&#x7F3A;&#x7701;&#x503C;&#xFF0C;&#x5E76;&#x5BF9;&#x521D;&#x5B66;&#x8005;&#x9690;&#x85CF;&#x4E86;&#x590D;&#x6742;&#x7684;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x7406;&#x8BBA;&#x3002;&#x5B83;&#x5F00;&#x7BB1;&#x5373;&#x7528;&#xFF08;&#x5B89;&#x88C5;&#x5373;&#x53EF;&#x4F7F;&#x7528;&#xFF09;&#xFF0C;&#x53EA;&#x9700;&#x5F88;&#x5C11;&#x7684;&#x5B66;&#x4E60;&#x65E2;&#x53EF;&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#x4F7F;&#x7528;&#x3002;</p>
+<p>Elasticsearch &#x5728; Apache 2 license &#x4E0B;&#x8BB8;&#x53EF;&#x4F7F;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x514D;&#x8D39;&#x4E0B;&#x8F7D;&#x3001;&#x4F7F;&#x7528;&#x548C;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F; ElasticSearch &#x4E2D;&#x51E0;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x6982;&#x5FF5;&#xFF1A;</p>
+<ul>
+<li>Cluster&#xFF08;&#x96C6;&#x7FA4;&#xFF09;&#xFF1A;ES&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x5B9E;&#x4F8B;&#x63D0;&#x4F9B;&#x641C;&#x7D22;&#x670D;&#x52A1;&#x3002;&#x4E0D;&#x8FC7;&#xFF0C;&#x4E3A;&#x4E86;&#x5904;&#x7406;&#x5927;&#x578B;&#x6570;&#x636E;&#x96C6;&#xFF0C;&#x5B9E;&#x73B0;&#x5BB9;&#x9519;&#x548C;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#xFF0C;ES&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x5728;&#x4E00;&#x7FA4;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;&#x8FD9;&#x4E9B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x96C6;&#x5408;&#x79F0;&#x4E3A;&#x96C6;&#x7FA4;&#x3002;</li>
+<li>Node&#xFF08;&#x8282;&#x70B9;&#xFF09;&#xFF1A;&#x7EC4;&#x6210;&#x96C6;&#x7FA4;&#x7684;&#x6BCF;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x79F0;&#x4E4B;&#x4E3A;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x3002;</li>
+<li>Index&#xFF08;&#x7D22;&#x5F15;&#xFF09;&#xFF1A;&#x5728;Elasticsearch&#x4E2D;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x7684;&#x884C;&#x4E3A;&#x5C31;&#x53EB;&#x505A;&#x7D22;&#x5F15;(indexing)&#x3002;&#x4E00;&#x4E2A;&#x7D22;&#x5F15;(index)&#x5C31;&#x50CF;&#x662F;&#x4F20;&#x7EDF;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5B83;&#x662F;&#x76F8;&#x5173;&#x6587;&#x6863;&#x5B58;&#x50A8;&#x7684;&#x5730;&#x65B9;&#xFF0C;index&#x7684;&#x590D;&#x6570;&#x662F;indices &#x6216;indexes&#x3002;</li>
+<li>Shard&#xFF08;&#x5206;&#x7247;&#xFF09;&#xFF1A;&#x5F53;&#x6709;&#x5927;&#x91CF;&#x7684;&#x6587;&#x6863;&#x65F6;&#xFF0C;&#x7531;&#x4E8E;&#x5185;&#x5B58;&#x7684;&#x9650;&#x5236;&#x3001;&#x78C1;&#x76D8;&#x5904;&#x7406;&#x80FD;&#x529B;&#x4E0D;&#x8DB3;&#x3001;&#x65E0;&#x6CD5;&#x8DB3;&#x591F;&#x5FEB;&#x7684;&#x54CD;&#x5E94;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#x7B49;&#xFF0C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x53EF;&#x80FD;&#x4E0D;&#x591F;&#x3002;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x8F83;&#x5C0F;&#x7684;&#x5206;&#x7247;&#x3002;&#x6BCF;&#x4E2A;&#x5206;&#x7247;&#x653E;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;
+&#x5F53;&#x4F60;&#x67E5;&#x8BE2;&#x7684;&#x7D22;&#x5F15;&#x5206;&#x5E03;&#x5728;&#x591A;&#x4E2A;&#x5206;&#x7247;&#x4E0A;&#x65F6;&#xFF0C;ES&#x4F1A;&#x628A;&#x67E5;&#x8BE2;&#x53D1;&#x9001;&#x7ED9;&#x6BCF;&#x4E2A;&#x76F8;&#x5173;&#x7684;&#x5206;&#x7247;&#xFF0C;&#x5E76;&#x5C06;&#x7ED3;&#x679C;&#x7EC4;&#x5408;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x800C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5E76;&#x4E0D;&#x77E5;&#x9053;&#x5206;&#x7247;&#x7684;&#x5B58;&#x5728;&#x3002;&#x5373;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x5BF9;&#x7528;&#x6237;&#x6765;&#x8BF4;&#x662F;&#x900F;&#x660E;&#x7684;&#x3002;</li>
+<li>Replica&#xFF08;&#x526F;&#x672C;&#xFF09;&#xFF1A;&#x4E3A;&#x63D0;&#x9AD8;&#x67E5;&#x8BE2;&#x541E;&#x5410;&#x91CF;&#x6216;&#x5B9E;&#x73B0;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5206;&#x7247;&#x526F;&#x672C;&#x3002;
+&#x526F;&#x672C;&#x662F;&#x4E00;&#x4E2A;&#x5206;&#x7247;&#x7684;&#x7CBE;&#x786E;&#x590D;&#x5236;&#xFF0C;&#x6BCF;&#x4E2A;&#x5206;&#x7247;&#x53EF;&#x4EE5;&#x6709;&#x96F6;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x526F;&#x672C;&#x3002;ES&#x4E2D;&#x53EF;&#x4EE5;&#x6709;&#x8BB8;&#x591A;&#x76F8;&#x540C;&#x7684;&#x5206;&#x7247;&#xFF0C;&#x5176;&#x4E2D;&#x4E4B;&#x4E00;&#x88AB;&#x9009;&#x62E9;&#x66F4;&#x6539;&#x7D22;&#x5F15;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD9;&#x79CD;&#x7279;&#x6B8A;&#x7684;&#x5206;&#x7247;&#x79F0;&#x4E3A;&#x4E3B;&#x5206;&#x7247;&#x3002;
+&#x5F53;&#x4E3B;&#x5206;&#x7247;&#x4E22;&#x5931;&#x65F6;&#xFF0C;&#x5982;&#xFF1A;&#x8BE5;&#x5206;&#x7247;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x53EF;&#x7528;&#x65F6;&#xFF0C;&#x96C6;&#x7FA4;&#x5C06;&#x526F;&#x672C;&#x63D0;&#x5347;&#x4E3A;&#x65B0;&#x7684;&#x4E3B;&#x5206;&#x7247;&#x3002;</li>
+</ul>
+<h3 id="&#x4E00;-&#x96C6;&#x7FA4;&#x914D;&#x7F6E;">&#x4E00; &#x96C6;&#x7FA4;&#x914D;&#x7F6E;</h3>
+<h6 id="1-&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x914D;&#x7F6E;&#x4F18;&#x5316;">1 &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x914D;&#x7F6E;&#x4F18;&#x5316;</h6>
+<p>&#x7981;&#x7528; swap&#xFF0C;&#x4E00;&#x65E6;&#x53D1;&#x751F;&#x5185;&#x5B58;&#x4EA4;&#x6362;&#xFF0C;&#x80AF;&#x5B9A;&#x4F1A;&#x5E26;&#x6765;&#x5DE8;&#x5927;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x3002;&#x5728; ElasticSearch &#x7684;&#x9AD8;&#x6548;&#x8BFB;&#x5199;&#x9700;&#x6C42;&#x4E0B;&#xFF0C;&#x4E0D;&#x5141;&#x8BB8;&#x4F7F;&#x7528;&#x4EA4;&#x6362;&#x5185;&#x5B58;&#x3002;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sed</span> -i <span class="token string">&apos;/swap/s/^/#/&apos;</span> /etc/fstab
+swapoff -a
+</code></pre>
+<p>&#x63D0;&#x9AD8;&#x6700;&#x5927;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x6570;&#x9650;&#x5236;&#x548C;&#x6700;&#x5927;&#x7528;&#x6237;&#x8FDB;&#x7A0B;&#x6570;</p>
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">echo</span> <span class="token string">&quot;* - nofile 65536&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/security/limits.conf
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;* - nproc 131072&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/security/limits.conf
+</code></pre>
+<p>Elasticsearch &#x5BF9;&#x5404;&#x79CD;&#x6587;&#x4EF6;&#x6DF7;&#x5408;&#x4F7F;&#x7528;&#x4E86; NioFs &#x548C; MMapFs &#x3002;&#x786E;&#x4FDD;&#x914D;&#x7F6E;&#x6700;&#x5927;&#x6620;&#x5C04;&#x6570;&#x91CF;&#xFF0C;&#x4EE5;&#x4FBF;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x53EF;&#x7528;&#x4E8E; mmapped &#x6587;&#x4EF6;&#x3002;</p>
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">echo</span> <span class="token string">&quot;vm.max_map_count = 262144&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf
+sysctl -p
+</code></pre>
+<h6 id="2-&#x8282;&#x70B9;&#x4E2A;&#x6570;">2 &#x8282;&#x70B9;&#x4E2A;&#x6570;</h6>
+<p>ES&#x5185;&#x90E8;&#x7EF4;&#x62A4;&#x96C6;&#x7FA4;&#x901A;&#x4FE1;&#xFF0C;&#x4E0D;&#x662F;&#x57FA;&#x4E8E;zookeeper&#x7684;&#x5206;&#x53D1;&#x90E8;&#x7F72;&#x673A;&#x5236;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x65E0;&#x9700;&#x5947;&#x6570;&#x3002; &#x4F46;&#x662F;discovery.zen.minimum_master_nodes&#x7684;&#x503C;&#x8981;&#x8BBE;&#x7F6E;&#x4E3A;&#xFF1A;&#x5019;&#x9009;&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x4E2A;&#x6570;/2+1&#xFF0C;&#x624D;&#x80FD;&#x6709;&#x6548;&#x907F;&#x514D;&#x8111;&#x88C2;&#x3002;</p>
+<h6 id="3-&#x78C1;&#x76D8;&#x6027;&#x80FD;">3 &#x78C1;&#x76D8;&#x6027;&#x80FD;</h6>
+<p>Elasticsearch&#x6700;&#x5927;&#x7684;&#x74F6;&#x9888;&#x5F80;&#x5F80;&#x662F;&#x78C1;&#x76D8;&#x8BFB;&#x5199;&#x6027;&#x80FD;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x968F;&#x673A;&#x8BFB;&#x53D6;&#x6027;&#x80FD;&#x3002;&#x4F7F;&#x7528;SSD&#xFF08;PCI-E&#x63A5;&#x53E3;SSD&#x5361;/SATA&#x63A5;&#x53E3;SSD&#x76D8;&#xFF09;&#x901A;&#x5E38;&#x6BD4;&#x673A;&#x68B0;&#x786C;&#x76D8;&#xFF08;SATA&#x76D8;/SAS&#x76D8;&#xFF09;&#x67E5;&#x8BE2;&#x901F;&#x5EA6;&#x5FEB;5~10&#x500D;.</p>
+<h3 id="&#x4E8C;-es-&#x5F00;&#x542F;&#x9AD8;&#x6027;&#x80FD;&#x5199;&#x6A21;&#x5F0F;">&#x4E8C; ES &#x5F00;&#x542F;&#x9AD8;&#x6027;&#x80FD;&#x5199;&#x6A21;&#x5F0F;</h3>
+<ul>
+<li>&#x73B0;&#x8C61;</li>
+</ul>
+<p>Skywalking &#x65E5;&#x5FD7;&#x51FA;&#x73B0; 429 Too many requests</p>
+<ul>
+<li>&#x9020;&#x6210;&#x539F;&#x56E0;</li>
+</ul>
+<p>&#x56E0;&#x4E3A;&#x63A5;&#x5165;Skywalking &#x7684;&#x5B9E;&#x4F8B;&#x592A;&#x591A;&#xFF0C;&#x5BFC;&#x81F4;Skywalking &#x5728;Bulk&#xFF08;&#x6279;&#x91CF;&#xFF09;&#x5199;&#x5165; ES &#x7684;&#x65F6;&#x5019;&#xFF0C;ES &#x6027;&#x80FD;&#x4E0D;&#x591F;&#x62A5;&#x9519;&#x3002;</p>
+<p>&#x7EFC;&#x5408;&#x6765;&#x8BF4;,&#x63D0;&#x5347;&#x5199;&#x5165;&#x901F;&#x5EA6;&#x4ECE;&#x4EE5;&#x4E0B;&#x51E0;&#x65B9;&#x9762;&#x5165;&#x624B;:</p>
+<ul>
+<li>&#x52A0;&#x5927; translog flush ,&#x76EE;&#x7684;&#x662F;&#x964D;&#x4F4E; iops,writeblock</li>
+<li>&#x52A0;&#x5927; index refresh&#x95F4;&#x9694;, &#x76EE;&#x7684;&#x9664;&#x4E86;&#x964D;&#x4F4E; io, &#x66F4;&#x91CD;&#x8981;&#x7684;&#x964D;&#x4F4E;&#x4E86; segment merge &#x9891;&#x7387;</li>
+<li>&#x8C03;&#x6574; bulk &#x7EBF;&#x7A0B;&#x6C60;&#x548C;&#x961F;&#x5217;</li>
+<li>&#x4F18;&#x5316;&#x78C1;&#x76D8;&#x95F4;&#x7684;&#x4EFB;&#x52A1;&#x5747;&#x5300;&#x60C5;&#x51B5;,&#x5C06; shard &#x5C3D;&#x91CF;&#x5747;&#x5300;&#x5206;&#x5E03;&#x5230;&#x7269;&#x7406;&#x4E3B;&#x673A;&#x7684;&#x5404;&#x78C1;&#x76D8;</li>
+<li>&#x4F18;&#x5316;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x4EFB;&#x52A1;&#x5206;&#x5E03;,&#x5C06;&#x4EFB;&#x52A1;&#x5C3D;&#x91CF;&#x5747;&#x5300;&#x7684;&#x53D1;&#x5230;&#x5404;&#x8282;&#x70B9;</li>
+<li>&#x4F18;&#x5316; lucene &#x5C42;&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;&#x7684;&#x8FC7;&#x7A0B;,&#x76EE;&#x7684;&#x662F;&#x964D;&#x4F4E; CPU &#x5360;&#x7528;&#x7387;&#x53CA; IO</li>
+<li>&#x9488;&#x5BF9;Skywalking&#xFF0C;&#x63D0;&#x70BC;&#x51FA;&#x5982;&#x4E0B;&#x4F18;&#x5316;&#x53C2;&#x6570;&#xFF0C;&#x5728;elasticsearch.yml&#x6587;&#x4EF6;&#x4E2D;&#x65B0;&#x589E;&#x540E;&#x91CD;&#x542F; ElasticSearch &#x751F;&#x6548;&#xFF1A;</li>
+</ul>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x9501;&#x5B9A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF0C;&#x9632;&#x6B62;elasticsearch&#x5185;&#x5B58;&#x88AB;&#x4EA4;&#x6362;&#x51FA;&#x53BB;,&#x4E5F;&#x5C31;&#x662F;&#x907F;&#x514D;es&#x4F7F;&#x7528;swap&#x4EA4;&#x6362;&#x5206;&#x533A;&#xFF0C;https://www.elastic.co/guide/en/elasticsearch/reference/7.4/setup-configuration-memory.html</span>
+bootstrap.memory_lock: <span class="token boolean">true</span>
+
+<span class="token comment"># &#x589E;&#x5927;&#x961F;&#x5217;&#x5927;&#x5C0F;&#xFF0C;&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;&#x7684;&#x8FC7;&#x7A0B;&#x504F;&#x8BA1;&#x7B97;&#x5BC6;&#x96C6;&#x578B;&#x4EFB;&#x52A1;,&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x56FA;&#x5B9A;&#x5927;&#x5C0F;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x914D;&#x7F6E;,&#x6765;&#x4E0D;&#x53CA;&#x5904;&#x7406;&#x7684;&#x653E;&#x5165;&#x961F;&#x5217;,&#x7EBF;&#x7A0B;&#x6570;&#x91CF;&#x914D;&#x7F6E;&#x4E3A; CPU &#x6838;&#x5FC3;&#x6570;+1,&#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;.&#x961F;&#x5217;&#x5927;&#x5C0F;&#x53EF;&#x4EE5;&#x9002;&#x5F53;&#x589E;&#x52A0;.</span>
+thread_pool.index.queue_size: <span class="token number">1000</span>
+thread_pool.write.queue_size: <span class="token number">1000</span>
+</code></pre>
+<p>Elasticsearch&#x8FD1;&#x5B9E;&#x65F6;&#x7684;&#x672C;&#x8D28;&#x662F;&#xFF1A;&#x6700;&#x5FEB;1s&#x5199;&#x5165;&#x7684;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x88AB;&#x67E5;&#x8BE2;&#x5230;&#x3002; &#x5982;&#x679C;refresh_interval&#x8BBE;&#x7F6E;&#x4E3A;1s&#xFF0C;&#x52BF;&#x5FC5;&#x4F1A;&#x4EA7;&#x751F;&#x5927;&#x91CF;&#x7684;segment&#xFF0C;&#x68C0;&#x7D22;&#x6027;&#x80FD;&#x4F1A;&#x53D7;&#x5230;&#x5F71;&#x54CD;&#x3002; &#x6240;&#x4EE5;&#xFF0C;&#x975E;&#x5B9E;&#x65F6;&#x7684;&#x573A;&#x666F;&#x53EF;&#x4EE5;&#x8C03;&#x5927;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E3A;30s&#xFF0C;&#x751A;&#x81F3;-1&#x3002;</p>
+<h3 id="&#x4E09;-&#x8BBE;&#x7F6E;&#x5408;&#x7406;&#x7684;&#x78C1;&#x76D8;&#x9650;&#x989D;&#x6C34;&#x4F4D;&#x7EBF;">&#x4E09; &#x8BBE;&#x7F6E;&#x5408;&#x7406;&#x7684;&#x78C1;&#x76D8;&#x9650;&#x989D;&#x6C34;&#x4F4D;&#x7EBF;</h3>
+<p>&#x4E3A;&#x4E86;&#x4FDD;&#x62A4;&#x8282;&#x70B9;&#x6570;&#x636E;&#x5B89;&#x5168;ES &#x4F1A;&#x5B9A;&#x65F6;(cluster.info.update.interval&#xFF0C;&#x9ED8;&#x8BA4; 30 &#x79D2;)&#x68C0;&#x67E5;&#x4E00;&#x4E0B;&#x5404;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x76EE;&#x5F55;&#x78C1;&#x76D8;&#x4F7F;&#x7528;&#x60C5;&#x51B5;&#x3002;&#x6839;&#x636E;&#x5355;&#x4E2A;&#x5206;&#x7247;&#x7684;&#x6570;&#x636E;&#x5927;&#x5C0F;&#xFF0C;&#x5408;&#x7406;&#x8C03;&#x6574; watermark.low  &#x7684;&#x503C;&#x3002;&#x5982;&#x679C;&#x5355;&#x4E2A;&#x5206;&#x7247;&#x6570;&#x636E;&#x5927;&#x5C0F;&#x8D85;&#x8FC7;&#x78C1;&#x76D8;&#x7A7A;&#x95F4;&#x7684; 10%&#xFF0C;&#x5EFA;&#x8BAE;&#x5C06; watermark.low &#x8C03;&#x6574;&#x5230; 70% &#x3002;&#x540C;&#x6837;&#x7684;&#xFF0C;&#x5BF9;&#x4E8E;&#x5927;&#x91CF;&#x7684;&#x5C0F;&#x5206;&#x7247;&#x53EF;&#x4EE5;&#x8C03;&#x9AD8; watermark.low &#x6765;&#x63D0;&#x9AD8;&#x78C1;&#x76D8;&#x7684;&#x4F7F;&#x7528;&#x7387;&#xFF0C;&#x964D;&#x4F4E;&#x6210;&#x672C;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">cluster.routing.allocation.disk.threshold_enabled      &#x9ED8;&#x8BA4;true, &#x542F;&#x7528;&#x78C1;&#x76D8;&#x7A7A;&#x95F4;&#x9608;&#x503C;&#x68C0;&#x67E5;
+cluster.routing.allocation.disk.watermark.low          &#x9ED8;&#x8BA4;85%, &#x5206;&#x7247;&#x4E0D;&#x4F1A;&#x5206;&#x914D;<span class="token punctuation">(</span>&#x9664;&#x65B0;&#x5EFA;&#x7684;&#x7D22;&#x5F15;&#x7684;&#x4E3B;&#x5206;&#x7247;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;<span class="token punctuation">)</span>
+cluster.routing.allocation.disk.watermark.high         &#x9ED8;&#x8BA4;90%, &#x8FBE;&#x5230;&#x8BE5;&#x503C;,ES&#x4F1A;&#x505A;relocate,&#x5F71;&#x54CD;&#x6240;&#x6709;&#x5206;&#x7247;
+cluster.routing.allocation.disk.watermark.flood_stage  &#x9ED8;&#x8BA4;95%, index.blocks.read_only_allow_delete,&#x5F53;&#x78C1;
+</code></pre>
+<p>&#x5F53;&#x78C1;&#x76D8;&#x7A7A;&#x95F4;&#x6C34;&#x4F4D;&#x7EBF;&#x8D85;&#x8FC7; 95%&#x4F1A;&#x5BFC;&#x81F4;&#x7D22;&#x5F15;&#x53EA;&#x8BFB;&#x3002;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;&#x53C2;&#x6570;&#x53D6;&#x6D88;&#x53EA;&#x8BFB;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">PUT _all/_settings
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;index&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;blocks&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;read_only_allow_delete&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;false&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#x56DB;-&#x5220;&#x9664;&#x7D22;&#x5F15;&#x7684;&#x526F;&#x672C;&#x5206;&#x7247;">&#x56DB; &#x5220;&#x9664;&#x7D22;&#x5F15;&#x7684;&#x526F;&#x672C;&#x5206;&#x7247;</h3>
+<p>&#x5728;&#x6D4B;&#x8BD5;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x5F80;&#x5F80;&#x5BF9;&#x6570;&#x636E;&#x5E76;&#x6CA1;&#x6709;&#x5F88;&#x9AD8;&#x7684;&#x53EF;&#x7528;&#x6027;&#x8981;&#x6C42;&#xFF0C;&#x4F46;&#x662F;&#x5BF9; ElasticSearch &#x7684;&#x6027;&#x80FD;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x8981;&#x6C42;&#x3002;&#x526F;&#x672C;&#x5206;&#x7247;&#x5728;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x4F1A;&#x5360;&#x7528; ElasticSearch &#x7684;&#x5806;&#x5185;&#x5B58;&#x8D44;&#x6E90;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x96C6;&#x7FA4;&#x91CD;&#x542F;&#x65F6;&#xFF0C;&#x7D22;&#x5F15;&#x7684;&#x6062;&#x590D;&#x8017;&#x65F6;&#x4E5F;&#x4F1A;&#x53D7;&#x526F;&#x672C;&#x5206;&#x7247;&#x7684;&#x5F71;&#x54CD;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5;&#x73AF;&#x5883;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x7D22;&#x5F15;&#x7684;&#x526F;&#x672C;&#x5206;&#x7247;&#x8BBE;&#x7F6E;&#x4E3A; 0&#x3002;</p>
+<pre class="language-"><code class="lang-bash"><span class="token assign-left variable">ES_HOST</span><span class="token operator">=</span><span class="token number">10.15</span>.120.16<span class="token punctuation">;</span> <span class="token function">curl</span> -sSL <span class="token string">&quot;http://<span class="token variable">$ES_HOST</span>:9200/_cat/shards?v&quot;</span><span class="token operator">|</span><span class="token function">awk</span> <span class="token string">&apos;{if(<span class="token variable">$3</span>==&quot;r&quot;) print <span class="token variable">$1</span>}&apos;</span><span class="token operator">|</span><span class="token function">sort</span><span class="token operator">|</span><span class="token function">uniq</span><span class="token operator">|</span><span class="token function">xargs</span> -I <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token builtin class-name">echo</span> <span class="token string">&quot;curl -sSL -XPUT http://<span class="token variable">$ES_HOST</span>:9200/{}/_settings -d &apos;{<span class="token entity" title="\&quot;">\&quot;</span>index<span class="token entity" title="\&quot;">\&quot;</span>:{<span class="token entity" title="\&quot;">\&quot;</span>number_of_replicas<span class="token entity" title="\&quot;">\&quot;</span>:0}}&apos; -H &apos;Content-Type: application/json&apos;&quot;</span> <span class="token operator">&gt;</span> delete_replicas.sh
+<span class="token comment"># &#x68C0;&#x67E5; delete_replicas.sh &#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x7D22;&#x5F15;&#x540D;&#x79F0;&#xFF0C;&#x9632;&#x6B62;&#x8BEF;&#x5220;&#x6570;&#x636E;&#xFF0C;&#x786E;&#x8BA4;&#x65E0;&#x8BEF;&#x540E;&#x6267;&#x884C;&#x811A;&#x672C;</span>
+<span class="token function">bash</span> ./delete_replicas.sh
+</code></pre>
+<p>// TODO: &#x5F85;&#x8865;&#x5145;</p>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; Jared Tan 2019-2020 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated: 
+2020-08-18 15:43:17
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="nginx_grpc/nginx-grpc.html" class="navigation navigation-prev " aria-label="Previous page: 使用 Nginx 代理 gRPC，为 Skywalking 集群提供负载均衡">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../faq/" class="navigation navigation-next " aria-label="Next page: FAQ">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Elasticsearch 优化","level":"4.5.5","depth":2,"next":{"title":"FAQ","level":"4.6","depth":1,"path":"faq/README.md","ref":"faq/README.md","articles":[]},"previous":{"title":"使用 Nginx 代理 gRPC，为 Skywalking 集群提供负载均衡","level":"4.5.4","depth":2,"path":"extensions/nginx_grpc/nginx-grpc.md","ref":"extensions/nginx_grpc/nginx-grpc.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Jared Tan 2019-2020","modify_label":"Updated: ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/JaredTan95/skywalking-handbook"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/JaredTan95/skywalking-handbook/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://github.com/JaredTan95/skywalking-handbook"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"JaredTan95/skywalking-handbook","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"11f7d254cfa4e0ca44b175c66d379ecc"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Jared Tan","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"index.html#fig1.1.1","level":"1.1","list_caption":"Figure: PDF 书籍封面——By Allen Wang","alt":"PDF 书籍封面——By Allen Wang","nro":1,"url":"cover.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"PDF 书籍封面——By Allen Wang","attributes":{},"skip":false,"key":"1.1.1"},{"backlink":"index.html#fig1.1.2","level":"1.1","list_caption":"Figure: Jared Tan","alt":"Jared Tan","nro":2,"url":"http://cdn.jared-says.cn/WechatIMG163.jpeg","index":2,"caption_template":"图片 - _CAPTION_","label":"Jared Tan","attributes":{},"skip":false,"key":"1.1.2"},{"backlink":"concepts/overview.html#fig2.1.1","level":"2.1","list_caption":"Figure: landscape.png","alt":"landscape.png","nro":3,"url":"../images/landscape.png","index":1,"caption_template":"图片 - _CAPTION_","label":"landscape.png","attributes":{},"skip":false,"key":"2.1.1"},{"backlink":"concepts/overview.html#fig2.1.2","level":"2.1","list_caption":"Figure: obervability_and_analysis","alt":"obervability_and_analysis","nro":4,"url":"../images/obervability_and_analysis.png","index":2,"caption_template":"图片 - _CAPTION_","label":"obervability_and_analysis","attributes":{},"skip":false,"key":"2.1.2"},{"backlink":"concepts/trace_metrics_loggin.html#fig2.2.1","level":"2.2","list_caption":"Figure: tracing_Logging_metrics.jpg","alt":"tracing_Logging_metrics.jpg","nro":5,"url":"../images/tracing_Logging_metrics.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"tracing_Logging_metrics.jpg","attributes":{},"skip":false,"key":"2.2.1"},{"backlink":"tracing_system/index.html#fig3.1.1","level":"3.1","list_caption":"Figure: dapper-01.png","alt":"dapper-01.png","nro":6,"url":"../images/dapper-01.png","index":1,"caption_template":"图片 - _CAPTION_","label":"dapper-01.png","attributes":{},"skip":false,"key":"3.1.1"},{"backlink":"tracing_system/index.html#fig3.1.2","level":"3.1","list_caption":"Figure: ali-edge.png","alt":"ali-edge.png","nro":7,"url":"../images/ali-edge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"ali-edge.png","attributes":{},"skip":false,"key":"3.1.2"},{"backlink":"tracing_system/index.html#fig3.1.3","level":"3.1","list_caption":"Figure: opentracing_opencensus","alt":"opentracing_opencensus","nro":8,"url":"../images/opentracing_opencensus.png","index":3,"caption_template":"图片 - _CAPTION_","label":"opentracing_opencensus","attributes":{},"skip":false,"key":"3.1.3"},{"backlink":"tracing_system/index.html#fig3.1.4","level":"3.1","list_caption":"Figure: opentracing_opencensus_users","alt":"opentracing_opencensus_users","nro":9,"url":"../images/opentracing_opencensus_users.png","index":4,"caption_template":"图片 - _CAPTION_","label":"opentracing_opencensus_users","attributes":{},"skip":false,"key":"3.1.4"},{"backlink":"tracing_system/index.html#fig3.1.5","level":"3.1","list_caption":"Figure: opentelementry","alt":"opentelementry","nro":10,"url":"../images/opentelementry.png","index":5,"caption_template":"图片 - _CAPTION_","label":"opentelementry","attributes":{},"skip":false,"key":"3.1.5"},{"backlink":"tracing_system/index.html#fig3.1.6","level":"3.1","list_caption":"Figure: opentelementry_yuri","alt":"opentelementry_yuri","nro":11,"url":"../images/opentelementry_yuri.png","index":6,"caption_template":"图片 - _CAPTION_","label":"opentelementry_yuri","attributes":{},"skip":false,"key":"3.1.6"},{"backlink":"tracing_system/PS_deep_into_obserbility.html#fig3.3.1","level":"3.3","list_caption":"Figure: 软件架构","alt":"软件架构","nro":12,"url":"http://cdn.jared-says.cn/WX20200818-152223@2x.png","index":1,"caption_template":"图片 - _CAPTION_","label":"软件架构","attributes":{},"skip":false,"key":"3.3.1"},{"backlink":"tracing_system/PS_deep_into_obserbility.html#fig3.3.2","level":"3.3","list_caption":"Figure: 可观测性建设四步法","alt":"可观测性建设四步法","nro":13,"url":"http://cdn.jared-says.cn/WX20200425-142717@2x.png","index":2,"caption_template":"图片 - _CAPTION_","label":"可观测性建设四步法","attributes":{},"skip":false,"key":"3.3.2"},{"backlink":"tracing_system/skywalking/skywalking_intro.html#fig4.1.1","level":"4.1","list_caption":"Figure: Skywalking  可观察性分析平台","alt":"Skywalking  可观察性分析平台","nro":14,"url":"http://cdn.jared-says.cn/687474703a2f2f736b7977616c6b696e672e6170616368652e6f72672f6173736574732f6672616d652d76382e6a70673f753d3230323030343233.jpeg","index":1,"caption_template":"图片 - _CAPTION_","label":"Skywalking  可观察性分析平台","attributes":{},"skip":false,"key":"4.1.1"},{"backlink":"tracing_system/skywalking/feature.html#fig4.1.1.1","level":"4.1.1","list_caption":"Figure: skywalking-dashboard-01","alt":"skywalking-dashboard-01","nro":15,"url":"http://cdn.jared-says.cn/skywalking-8-01.png","index":1,"caption_template":"图片 - _CAPTION_","label":"skywalking-dashboard-01","attributes":{},"skip":false,"key":"4.1.1.1"},{"backlink":"tracing_system/skywalking/feature.html#fig4.1.1.2","level":"4.1.1","list_caption":"Figure: skywalking-dashboard","alt":"skywalking-dashboard","nro":16,"url":"http://cdn.jared-says.cn/WX20200609-110936.png","index":2,"caption_template":"图片 - _CAPTION_","label":"skywalking-dashboard","attributes":{},"skip":false,"key":"4.1.1.2"},{"backlink":"tracing_system/skywalking/feature.html#fig4.1.1.3","level":"4.1.1","list_caption":"Figure: skywalking-dashboard-template","alt":"skywalking-dashboard-template","nro":17,"url":"http://cdn.jared-says.cn/WechatIMG154.jpeg","index":3,"caption_template":"图片 - _CAPTION_","label":"skywalking-dashboard-template","attributes":{},"skip":false,"key":"4.1.1.3"}]},"title":"Apache Skywalking Handbook","language":"zh-hans","links":{"sidebar":{"Jared Tan":"https://github.com/JaredTan95/","Allen Wang":"https://github.com/TinyAllen","Apache Skywalking":"https://github.com/apache/skywalking"}},"gitbook":"*","description":"Apache Skywalking Handbook"},"file":{"path":"extensions/es_opti.md","mtime":"2020-08-18T07:43:17.652Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-08-18T07:44:06.704Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
