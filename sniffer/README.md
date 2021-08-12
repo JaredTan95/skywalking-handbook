@@ -14,20 +14,20 @@ Skywalking OAP后端收集器器已经安装部署好，假设暴露的地址为
 
 不同版本下载地址: http://skywalking.apache.org/downloads/
 
-此处以 8.1.0 为例:
-首先点击右边地址下载 Skywalking 安装包，⾥面包含了探针 Agent 压缩包:https://www-us.apache.org/dist/skywalking/8.1.0/apache-skywalking-apm-8.1.0.tar.gz;也可以查看该⽂档同级⽬目录下的压缩包。
+此处以 8.7.0 为例:
+首先点击右边地址下载 Skywalking 安装包，⾥面包含了探针 Agent 压缩包:https://www-us.apache.org/dist/skywalking/8.7.0/apache-skywalking-apm-8.7.0.tar.gz;也可以查看该⽂档同级⽬目录下的压缩包。
 或者在Linux系统中执⾏行行如下命令:
 
 - 下载压缩包
 
 ```bash
-$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-8.1.0.tar.gz
+$ wget https://www-us.apache.org/dist/skywalking/6.4.0/apache-skywalking-apm-8.7.0.tar.gz
 ```
 
 - 解压缩之后
 
 ```bash
-$ tar -zxvf apache-skywalking-apm-8.1.0.tar.gz
+$ tar -zxvf apache-skywalking-apm-8.7.0.tar.gz
 
   +-- agent
      +-- activations

@@ -22,7 +22,7 @@
     - [shell 脚本部署](installation/script_way/README.md)
     - [容器化部署](installation/container_way/README.md)
     - [参数解释以及集群模式部署](installation/configuration/README.md)
-- [探针接入](sniffer/README.md)  
+- [探针接入](sniffer/README.md)
     - [探针参数配置](sniffer/agent_param.md)
     - [端点过滤-忽略追踪](sniffer/trace_ingore.md)
     - [支持自定义方法/函数增强](sniffer/customize-enhance-trace.md)

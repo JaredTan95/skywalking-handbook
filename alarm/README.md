@@ -1,7 +1,8 @@
 # 告警模块
 
 Skywalking 发送告警的基本原理是每隔一段时间轮询 skywalking-oap 收集到的链路追踪的数据，再根据所配置的告警规则（如服务响应时间、服务响应时间百分比）等，如果达到阈值则发送响应的告警信息。
-发送告警信息是以线程池异步的方式调用 webhook 接口完成，（具体的webhook接口可以使用者自行定义），从而开发者可以在指定的webhook接口中自行编写各种告警方式，钉钉告警、邮件告警等等。
+
+发送告警信息是以线程池异步的方式调用 webhook 接口完成，（具体的 webhook 接口可以自行定义并根据接收到的数据进行后续的处理），从而开发者可以在指定的 webhook 接口中自行编写各种告警方式，默认支持钉钉、企业微信、Slack 等等对接。如果你需要通过邮件等其它方式告警，你需要对接 webhook。
 
 告警的核心由一组规则驱动，这些规则定义在 安装解压缩包里面的`config/alarm-settings.yml`文件中, 打开之后如下所示：rules 即为需要配置的告警规则的列表；第一个规则 'endpoint_percent_rule'，是规则名，不能重复且必须以 '_rule' 为结尾.
 
@@ -19,7 +20,7 @@ rules:
     count: 3
     # How many times of checks, the alarm keeps silence after alarm triggered, default as same as period.（忽略相同告警 message 的周期，默认与告警检查周期一致）
     silence-period: 10
-    
+
   service_percent_rule:
     metrics-name: service_percent
     # [Optional] Default, match all services in this metrics（可选项，默认匹配所有服务）
@@ -30,6 +31,35 @@ rules:
     op: <
     period: 10
     count: 4
+```
+
+举个实际一点的例子：
+
+```yaml
+rules:
+  service_resp_time_rule:
+    metrics-name: service_resp_time
+    op: ">"
+    threshold: 1000
+    period: 10
+    count: 2
+    silence-period: 10
+    message: 服务[{name}] 的平均响应时间在最近 10 分钟内有 2 分钟超过 1 秒
+  service_instance_resp_time_rule:
+    metrics-name: service_instance_resp_time
+    op: ">"
+    threshold: 1000
+    period: 10
+    count: 2
+    silence-period: 10
+    message: 实例[{name}] 的平均响应时间在最近 10 分钟内有 2 分钟超过 1 秒
+  endpoint_resp_time_rule:
+    metrics-name: endpoint_avg
+    threshold: 1000
+    op: ">"
+    period: 10
+    count: 2
+    message: 端点[{name}]的平均响应时间在最近 10 分钟内有 2 分钟超过 1 秒
 ```
 
 告警规则的定义分为两部分。
@@ -44,7 +74,7 @@ rules:
 - **Include names**。使用本规则告警的服务列表。比如服务名，端点名。
 - **Threshold**。阈值,与metrics-name和下面的比较符号相匹配
 - **OP**。 操作符, 支持 `>`, `<`, `=`。欢迎贡献所有的操作符。如 metrics-name: endpoint_percent, threshold: 75，op: < ,表示如果相应时长小于平均75%则发送告警
-- **Period**.。多久告警规则需要被核实一下。这是一个时间窗口，与后端部署环境时间相匹配。    
+- **Period**.。多久告警规则需要被核实一下。这是一个时间窗口，与后端部署环境时间相匹配。
 - **Count**。 在一个Period窗口中，如果**value**s超过Threshold值（按op），达到Count值，需要发送警报。
 - **Silence period**。在时间N中触发报警后，在**TN -> TN + period**这个阶段不告警。 默认情况下，它和**Period**一样，这意味着相同的告警（在同一个Metrics name拥有相同的Id）在同一个Period内只会触发一次。
 
@@ -78,7 +108,7 @@ rules:
     count: 1
 
 👇 配置webhook，接收告警规则的URL。
-webhooks: 
+webhooks:
   - http://127.0.0.1:8090/notify/
   - http://127.0.0.1:8888/go-wechat/
 ```
@@ -96,11 +126,11 @@ JSON 格式可以参考 `List<org.apache.skywalking.oap.server.core.alarm.AlarmM
 以下是一个 POST 方式推送出去的告警信息样例：
 ```json
 [{
-	"scopeId": 1, 
+	"scopeId": 1,
     "scope": "SERVICE",
-    "name": "serviceA", 
-	"id0": 12,  
-	"id1": 0,  
+    "name": "serviceA",
+	"id0": 12,
+	"id1": 0,
     "ruleName": "service_resp_time_rule",
 	"alarmMessage": "alarmMessage xxxx",
 	"startTime": 1560524171000
